@@ -8,18 +8,30 @@
     :root { --body: clamp(1.2rem, 1.9vw, 1.9rem); --lead: calc(var(--body) * 1.15); }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
+      position: relative;
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #fafafa;
+      background: #dce3d8;
       color: #111;
     }
+    .corner {
+      position: absolute;
+      /* Never larger than 17x the header text size, so it stays in proportion on wide screens */
+      width: min(var(--corner-w, 30vw), calc(var(--lead) * 17));
+      height: auto;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .corner.tl { top: 60px; left: 0; }
+    .corner.br { bottom: 0; right: 0; transform: rotate(180deg); }
+    nav, main, .about { position: relative; z-index: 1; }
     nav {
       display: flex;
       align-items: center;
       justify-content: center;
       height: 60px;
-      border-bottom: 1px solid #e5e5e5;
-      background: #fff;
+      background: #294536;
+      color: #dce3d8;
       font-size: 1.1rem;
       font-weight: 600;
     }
@@ -41,13 +53,11 @@
     @media (max-width: 700px) {
       .about { padding-left: 1.5rem; padding-right: 1.5rem; }
     }
-    @media (prefers-color-scheme: dark) {
-      body { background: #111; color: #f5f5f5; }
-      nav { background: #1a1a1a; border-bottom-color: #333; }
-    }
   </style>
 </head>
 <body>
+  <img class="corner tl" src="corner.png" alt="">
+  <img class="corner br" src="corner.png" alt="">
   <nav>Anvi Anand</nav>
   <main>
     <h1>Welcome!</h1>
@@ -72,5 +82,21 @@
     <p>I repeated the movement, faster this time. My feet found their rhythm against the earth. I swung, turned, and brought the sword up to meet an imaginary opponent.</p>
     <p>A branch snapped somewhere behind me."</p>
   </section>
+  <script>
+    // Size the corner art so the top sword's tip ends at the left edge of "Welcome!"
+    // (the sword tip sits 445px across the 461px-wide image).
+    function sizeCorners() {
+      var h1 = document.querySelector('main h1');
+      var r = document.createRange();
+      r.selectNodeContents(h1);
+      var left = r.getBoundingClientRect().left + window.scrollX;
+      var gap = 16;
+      var w = Math.max(100, (left - gap) * 461 / 445);
+      document.documentElement.style.setProperty('--corner-w', w + 'px');
+    }
+    sizeCorners();
+    window.addEventListener('resize', sizeCorners);
+    window.addEventListener('load', sizeCorners);
+  </script>
 </body>
 </html>
