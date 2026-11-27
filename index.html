@@ -50,8 +50,17 @@
     }
     .about h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; }
     .about p { font-size: var(--body); line-height: 1.6; margin-top: 1rem; }
+    .cover {
+      float: left;
+      width: 34%;
+      height: auto;
+      margin: 1rem 2rem 1rem 0;
+      border-radius: 4px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
     @media (max-width: 700px) {
       .about { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .cover { float: none; display: block; width: 70%; margin: 1.5rem auto; }
     }
   </style>
 </head>
@@ -73,6 +82,7 @@
   </section>
   <section class="about">
     <h2>Sneak Peek</h2>
+    <img class="cover" src="book-cover.webp" alt="Cover of What Swords Couldn't Save, Book 1 of What Remains">
     <p>What Swords Couldn't Save<br>Book 1 of What Remains<br>Fantasy</p>
     <p>Follow 13 year old Astoria Hopkins on her journey to quell the rebellion that threatens her kingdom. Meet her brother, Theodore, her best friend, Rowan, and her unexpected accomplice, Caspian.</p>
     <p>"I took my position.</p>
