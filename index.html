@@ -5,75 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <title>Anvi Anand</title>
-  <style>
-    :root { color-scheme: light dark; --body: clamp(1.2rem, 1.9vw, 1.9rem); --lead: calc(var(--body) * 1.15); }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      position: relative;
-      min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #dce3d8;
-      color: #111;
-    }
-    .corner {
-      position: absolute;
-      /* Never larger than 17x the header text size, so it stays in proportion on wide screens */
-      width: min(var(--corner-w, 30vw), calc(var(--lead) * 17));
-      height: auto;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .corner.tl { top: 60px; left: 0; }
-    .corner.br { bottom: 0; right: 0; transform: rotate(180deg); }
-    nav, main, .about { position: relative; z-index: 1; }
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 60px;
-      background: #294536;
-      color: #dce3d8;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    main {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem;
-      text-align: center;
-    }
-    main h1 { font-size: calc(var(--lead) * 2.857); font-weight: 500; }
-    main h2 { font-size: calc(var(--lead) * 1.429); font-weight: 400; margin-top: 0.25rem; }
-    main p { font-size: var(--lead); margin-top: 0.75rem; line-height: 1.4; }
-    .about {
-      padding: 1.5rem calc(100% / 6) 3rem;
-      text-align: left;
-    }
-    .about h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; }
-    .about p { font-size: var(--body); line-height: 1.6; margin-top: 1rem; }
-    .cover {
-      float: left;
-      width: 42%;
-      height: auto;
-      margin: 1rem 2rem 1rem 0;
-      border-radius: 4px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-    @media (prefers-color-scheme: dark) {
-      /* Dark mode: swap sage and forest green */
-      body { background: #294536; color: #dce3d8; }
-      nav { background: #dce3d8; color: #294536; }
-    }
-    @media (max-width: 700px) {
-      .about { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .cover { float: none; display: block; width: 70%; margin: 1.5rem auto; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <img class="corner tl" src="corner.png" alt="">
   <img class="corner br" src="corner.png" alt="">
-  <nav>Anvi Anand</nav>
+  <nav>
+    <a class="brand" href="index.html">Anvi Anand</a>
+    <div class="dropdown">
+      <button class="drop-btn" type="button" aria-haspopup="true" aria-expanded="false">My Writing &#9662;</button>
+      <ul class="menu">
+        <li><a href="enchanted-clash.html">Enchanted Clash</a></li>
+      </ul>
+    </div>
+  </nav>
   <main>
     <h1>Welcome!</h1>
     <h2>I'm Anvi Anand!</h2>
@@ -98,21 +43,6 @@
     <p>I repeated the movement, faster this time. My feet found their rhythm against the earth. I swung, turned, and brought the sword up to meet an imaginary opponent.</p>
     <p>A branch snapped somewhere behind me."</p>
   </section>
-  <script>
-    // Size the corner art so the top sword's tip ends at the left edge of "Welcome!"
-    // (the sword tip sits 445px across the 461px-wide image).
-    function sizeCorners() {
-      var h1 = document.querySelector('main h1');
-      var r = document.createRange();
-      r.selectNodeContents(h1);
-      var left = r.getBoundingClientRect().left + window.scrollX;
-      var gap = 16;
-      var w = Math.max(100, (left - gap) * 461 / 445);
-      document.documentElement.style.setProperty('--corner-w', w + 'px');
-    }
-    sizeCorners();
-    window.addEventListener('resize', sizeCorners);
-    window.addEventListener('load', sizeCorners);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
