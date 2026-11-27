@@ -97,7 +97,8 @@ main p { font-size: var(--lead); margin-top: 0.75rem; line-height: 1.4; }
   .cover { float: none; display: block; width: 70%; margin: 1.5rem auto; }
 }
 
-.brand { color: inherit; text-decoration: none; }
+.brand { display: inline-flex; align-items: center; gap: 0.6rem; color: inherit; text-decoration: none; }
+.logo { height: 42px; width: auto; display: block; }
 main p a.read-link { color: inherit; text-decoration: underline; text-underline-offset: 0.2em; }
 /* Story page: the cover fills the content area below the menu bar */
 main.cover-page { max-width: none; padding: 0; }
