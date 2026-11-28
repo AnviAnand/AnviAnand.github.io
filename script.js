@@ -137,5 +137,26 @@ btn.addEventListener('click', function () {
 document.addEventListener('click', function (e) {
   if (!dd.contains(e.target)) { dd.classList.remove('open'); btn.setAttribute('aria-expanded', false); }
 });
-window.addEventListener('resize', layoutCorners);
-window.addEventListener('load', layoutCorners);
+// Re-run whenever the page size changes (window resize, entering/leaving fullscreen, zoom, fonts loading).
+// Fullscreen resizes in steps, so also run once more after it settles.
+var layoutTimer = null;
+function relayout() {
+  layoutCorners();
+  clearTimeout(layoutTimer);
+  layoutTimer = setTimeout(layoutCorners, 250);
+}
+window.addEventListener('resize', relayout);
+window.addEventListener('load', relayout);
+window.addEventListener('orientationchange', relayout);
+document.addEventListener('fullscreenchange', relayout);
+document.addEventListener('webkitfullscreenchange', relayout);
+if (window.visualViewport) window.visualViewport.addEventListener('resize', relayout);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+if (window.ResizeObserver) {
+  // Watch the content width (not the height, which our own spacing changes)
+  var lastW = 0;
+  new ResizeObserver(function (entries) {
+    var w = Math.round(entries[0].contentRect.width);
+    if (w !== lastW) { lastW = w; relayout(); }
+  }).observe(document.documentElement);
+}

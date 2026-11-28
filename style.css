@@ -21,6 +21,8 @@ nav, main, .about { position: relative; z-index: 1; }
 nav {
   --nav-bg: #294536;
   --nav-fg: #dce3d8;
+  position: sticky; /* stays at the top of the window while scrolling */
+  top: 0;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -97,6 +99,8 @@ main p { font-size: var(--lead); margin-top: 0.75rem; line-height: 1.4; }
   .cover { float: none; display: block; width: 70%; margin: 1.5rem auto; }
 }
 
+/* Make each section contain its floated cover, so the page (and the bottom corner art) ends below the cover */
+.about::after { content: ""; display: block; clear: both; }
 .brand { display: inline-flex; align-items: center; gap: 0.6rem; color: inherit; text-decoration: none; }
 .logo { height: 42px; width: auto; display: block; }
 main p a.read-link { color: inherit; text-decoration: underline; text-underline-offset: 0.2em; }
